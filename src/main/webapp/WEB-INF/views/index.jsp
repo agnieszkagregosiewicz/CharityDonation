@@ -17,7 +17,7 @@
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>13</em>
+            <em>${bags}</em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -25,7 +25,7 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em>${donations}</em>
             <h3>Przekazanych darów</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -35,7 +35,7 @@
 </section>
 
 <section class="steps">
-    <h2>Wystarczą 4 proste kroki</h2>
+    <h2 id="steps">Wystarczą 4 proste kroki</h2>
 
     <div class="steps--container">
         <div class="steps--item">
@@ -63,7 +63,7 @@
     <a href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
-<section class="about-us">
+<section class="about-us" id="about-us">
     <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
@@ -75,35 +75,34 @@
 </section>
 
 <section class="help">
-    <h2>Komu pomagamy?</h2>
+    <h2 id="fund">Komu pomagamy?</h2>
 
     <!-- SLIDE 1 -->
-    <div class="help--slides active" data-id="1">
+    <div class="help--slides active" data-id="1" >
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
             <li>
+                <c:forEach var="inst" items="${institutions}" varStatus="i">
+                    <c:if test="${i.index%2 != 0}">
                 <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
+                    <div class="title">Fundacja ${inst.name}</div>
+                    <div class="subtitle">Cel i misja: ${inst.description}</div>
                 </div>
-
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
+                    </c:if>
+                </c:forEach>
             </li>
 
             <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
+                <c:forEach var="inst" items="${institutions}" varStatus="i">
+                    <c:if test="${i.index%2 == 0}">
+                        <div class="col">
+                            <div class="title">Fundacja ${inst.name}</div>
+                            <div class="subtitle">Cel i misja: ${inst.description}</div>
+                        </div>
+                    </c:if>
+                </c:forEach>
 
             </li>
 

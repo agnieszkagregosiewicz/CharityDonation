@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JpaInstitutionService {
+public class InstitutionService {
     private final InstitutionRepository institutionRepository;
 
-    public JpaInstitutionService(InstitutionRepository institutionRepository) {
+    public InstitutionService(InstitutionRepository institutionRepository) {
         this.institutionRepository = institutionRepository;
     }
 

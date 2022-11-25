@@ -12,8 +12,17 @@
 </head>
 <body>
 <%--header--%>
+<header class="header--main-page">
 <%@ include file="/WEB-INF/fragments/header.jsp" %>
-
+    <div class="slogan container container--90">
+        <div class="slogan--item">
+            <h1>
+                Zacznij pomagać!<br/>
+                Oddaj niechciane rzeczy w zaufane ręce
+            </h1>
+        </div>
+    </div>
+</header>
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
@@ -60,7 +69,7 @@
         </div>
     </div>
 
-    <a href="#" class="btn btn--large">Załóż konto</a>
+    <a href="<c:url value="/register"/>" class="btn btn--large">Załóż konto</a>
 </section>
 
 <section class="about-us" id="about-us">

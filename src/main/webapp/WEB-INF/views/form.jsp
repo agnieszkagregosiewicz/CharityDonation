@@ -11,26 +11,7 @@
 </head>
 <body>
 <header class="header--form-page">
-    <nav class="container container--70">
-        <ul class="nav--actions">
-            <li class="logged-user">
-                Witaj Agata
-                <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="#">Wyloguj</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <ul>
-            <li><a href="index.jsp" class="btn btn--without-border active">Start</a></li>
-            <li><a href="index.jsp#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="index.jsp#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="index.jsp#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="index.jsp#contact" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
-    </nav>
+        <%@ include file="/WEB-INF/fragments/header.jsp" %>
 
     <div class="slogan container container--90">
         <div class="slogan--item">
@@ -229,10 +210,6 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                    <%--                    <li id="where1">Prosta 51</li>--%>
-                                    <%--                    <li id="where2">Warszawa</li>--%>
-                                    <%--                    <li id="where3">99-098</li>--%>
-                                    <%--                    <li id="where4">123 456 789</li>--%>
                                 <li id="where1"></li>
                                 <li id="where2"></li>
                                 <li id="where3"></li>
@@ -243,9 +220,6 @@
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                    <%--                    <li id="when1">13/12/2018</li>--%>
-                                    <%--                    <li id="when2">15:40</li>--%>
-                                    <%--                    <li id="when3">Brak uwag</li>--%>
                                 <li id="when1"></li>
                                 <li id="when2"></li>
                                 <li id="when3"></li>

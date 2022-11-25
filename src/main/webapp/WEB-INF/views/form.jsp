@@ -10,8 +10,55 @@
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
 </head>
 <body>
-<%--header--%>
-<%@ include file="/WEB-INF/fragments/header.jsp" %>
+<header class="header--form-page">
+    <nav class="container container--70">
+        <ul class="nav--actions">
+            <li class="logged-user">
+                Witaj Agata
+                <ul class="dropdown">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Moje zbiórki</a></li>
+                    <li><a href="#">Wyloguj</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul>
+            <li><a href="index.jsp" class="btn btn--without-border active">Start</a></li>
+            <li><a href="index.jsp#steps" class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a href="index.jsp#about-us" class="btn btn--without-border">O nas</a></li>
+            <li><a href="index.jsp#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="index.jsp#contact" class="btn btn--without-border">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="slogan container container--90">
+        <div class="slogan--item">
+            <h1>
+                Oddaj rzeczy, których już nie chcesz<br />
+                <span class="uppercase">potrzebującym</span>
+            </h1>
+
+            <div class="slogan--steps">
+                <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
+                <ul class="slogan--steps-boxes">
+                    <li>
+                        <div><em>1</em><span>Wybierz rzeczy</span></div>
+                    </li>
+                    <li>
+                        <div><em>2</em><span>Spakuj je w worki</span></div>
+                    </li>
+                    <li>
+                        <div><em>3</em><span>Wybierz fundację</span></div>
+                    </li>
+                    <li>
+                        <div><em>4</em><span>Zamów kuriera</span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
 
 <section class="form--steps">
     <div class="form--steps-instructions">
@@ -84,16 +131,14 @@
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
                 <c:forEach var="inst" items="${institutions}">
                     <div class="form-group form-group--checkbox">
-                        <form:label path="institution">
-                            <form:radiobutton element="span cssClass='checkbox radio'" path="institution" id="inst"
-                                              value="${inst.name}"/>
-<%--                            <span class="checkbox radio"></span>--%>
+                        <label>
+                            <input type="radio" name="institution" value="${inst.id}"/>
+                            <span class="checkbox radio"></span>
                             <span class="description">
                   <div class="title">${inst.name}</div>
                   <div class="subtitle">${inst.description}</div>
                 </span>
-                            <form:errors path="institution" element="span"/>
-                        </form:label>
+                        </label>
                     </div>
                 </c:forEach>
                 <div class="form-group form-group--buttons">
@@ -139,7 +184,7 @@
 
                         <div class="form-group form-group--inline">
                             <label> Godzina <form:input path="pickUpTime" id="time" type="time"
-                                                        name="pick_up_time"/> </label>
+                                                        name="pickUpTime"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">

@@ -1,10 +1,9 @@
+Charity Application
 
-Przed przystąpieniem do pracy  przeczytaj poniższe wskazówki.
-## Jak zacząć?
+Written in Java/JavaScript
 
-1. Zaimportuj projekt jako projekt `Maven`, wg poniższych wskazówek:
+Intended to be used as a platform for enabling:
 
-	* W `IntelliJ` wybieramy: `File –> New –> Project from Existing Sources...`
-	* Wskazujemy lokalizację katalogu ze sklonowanym projektem i zatwierdzamy.
-	* Następnie w nowym oknie wybieramy: `Import project from external model` i wskazujemy `Maven`
-	* Wybieramy kolejno opcje: `Next –> Next –> Next –> Finish`
+    giving goods for charity organizations by individual users
+    managing organizations, donations and users by administrators
+

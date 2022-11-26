@@ -17,16 +17,12 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/")
                 .permitAll()
-                .antMatchers("/api/**")
-                .permitAll()
                 .antMatchers("/user/**")
                 .authenticated()
                 .and()
-                .csrf().disable().cors()
-                .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/user")
+                .defaultSuccessUrl("/user/form")
                 .and().logout().logoutSuccessUrl("/")
                 .permitAll();
         return http.build();

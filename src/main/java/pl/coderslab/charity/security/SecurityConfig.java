@@ -20,6 +20,8 @@ public class SecurityConfig {
                 .antMatchers("/user/**")
                 .authenticated()
                 .and()
+                .csrf().disable().cors()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/user/form")

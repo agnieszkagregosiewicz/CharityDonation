@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.model.CurrentUser;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.UserService;
@@ -18,6 +20,7 @@ import java.util.Optional;
 
 @Controller
 public class UserController {
+    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -27,6 +30,15 @@ public class UserController {
     @GetMapping("/login")
     public String getLoginPage(Model model, User user) {
         model.addAttribute("user", user);
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String getLoginPageaaa(Model model, @RequestParam String email, @RequestParam String password) {
+        System.err.println("aaa");
+        System.err.println(email);
+
+        //model.addAttribute("user", user);
         return "login";
     }
 
@@ -65,7 +77,7 @@ public class UserController {
             return "register";
         }
         userService.add(user);
-        return "redirect:/";
+        return "redirect:/user/form";
     }
 
     @GetMapping(value = "/user/delete")

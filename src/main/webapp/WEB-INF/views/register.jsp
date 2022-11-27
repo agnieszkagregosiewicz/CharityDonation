@@ -37,6 +37,7 @@
           <a href="<c:url value="/login"/>" class="btn btn--without-border">Zaloguj się</a>
           <button class="btn" type="submit">Załóż konto</button>
         </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </form:form>
     </section>
 

@@ -43,7 +43,12 @@ public class DonationController {
     }
 
     @PostMapping("/user/form")
-    public String saveForm(Model model, Donation donation) {
+    public String saveForm(@AuthenticationPrincipal CurrentUser userSession, Model model, Donation donation) {
+        Optional<User> user = userService.get(userSession.getUser().getId());
+        if (user.isEmpty()) {
+            return "login";
+        }
+        model.addAttribute("user", user.get());
         donationService.add(donation);
         return "form-confirmation";
     }

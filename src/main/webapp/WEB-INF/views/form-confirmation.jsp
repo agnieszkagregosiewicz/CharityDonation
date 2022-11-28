@@ -7,7 +7,7 @@
   <head>
     <%@ include file="/WEB-INF/fragments/meta.jsp" %>
     <title>Podsumowanie</title>
-    <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
   </head>
   <body>
   <header class="header--form-page">
@@ -24,6 +24,6 @@
   <%--footer--%>
   <%@ include file="/WEB-INF/fragments/footer.jsp" %>
 
-  <script src="<c:url value="resources/js/app.js"/>"></script>
+  <script src="<c:url value="/resources/js/app.js"/>"></script>
   </body>
 </html>

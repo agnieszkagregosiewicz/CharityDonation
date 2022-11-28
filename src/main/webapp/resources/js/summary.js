@@ -1,6 +1,4 @@
-const categories = document.querySelectorAll('input[name="categories"]:checked ~ span.description');
 const quantity = document.querySelector('#Q');
-const institution = document.querySelector('input[name="institution"]:checked ~ span.description .title');
 const street = document.querySelector("#street");
 const city = document.querySelector("#city");
 const zipcode = document.querySelector("#zip");
@@ -19,14 +17,21 @@ const whenD = document.querySelector("#when1");
 const whenT = document.querySelector("#when2");
 const whenC = document.querySelector("#when3");
 
-const finishButton =document.querySelector("#finish");
+const finishButton = document.querySelector("#finish");
+
 let names = '';
-categories.forEach(function(element) {names += element.innerText + ' ';})
 
 finishButton.addEventListener('click', summary);
+
 function summary() {
+    let categories = document.querySelectorAll('input[name="categories"]:checked ~ span.description');
+    categories.forEach(function (element) {
+        console.log(element);
+        names += element.innerText + ' ';
+    })
+    let institution = document.querySelector('input[name="institution"]:checked ~ span.description .title');
     quan.innerHTML = quantity.value + " worki z następujących kategorii: " + names;
-   fund.innerHTML = "Dla fundacji " + '"' + institution.innerText + '"';
+    fund.innerHTML = "Dla fundacji " + '"' + institution.innerHTML + '"';
     whereS.innerHTML = "" + street.value;
     whereC.innerHTML = "" + city.value;
     whereZ.innerHTML = "" + zipcode.value;
@@ -34,6 +39,4 @@ function summary() {
     whenD.innerHTML = "" + pickupDate.value;
     whenT.innerHTML = "" + pickupTime.value;
     whenC.innerHTML = "" + comment.value;
-
-
 }

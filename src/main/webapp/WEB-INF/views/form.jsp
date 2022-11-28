@@ -7,7 +7,7 @@
 <head>
     <%@ include file="/WEB-INF/fragments/meta.jsp" %>
     <title>Przekaż dary</title>
-    <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
 <header class="header--form-page">
@@ -81,6 +81,7 @@
                         </label>
                     </div>
                 </c:forEach>
+                <form:errors path="categories"></form:errors>
 
 
                 <div class="form-group form-group--buttons">
@@ -122,6 +123,7 @@
                         </label>
                     </div>
                 </c:forEach>
+                <form:errors path="institution"></form:errors>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="button" class="btn next-step">Dalej</button>
@@ -137,15 +139,18 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica <form:input path="street" id="street" type="text" name="street"/> </label>
+                        <form:errors path="street"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Miasto <form:input path="city" id="city" type="text" name="city"/> </label>
+                            <form:errors path="city"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Kod pocztowy <form:input path="zipCode" id="zip" type="text" name="zip_code"/>
+                                <form:errors path="zipCode"></form:errors>
                             </label>
                         </div>
 
@@ -161,11 +166,13 @@
                         <div class="form-group form-group--inline">
                             <label> Data <form:input path="pickUpDate" id="date" type="date"
                                                      name="pick_up_date"/> </label>
+                            <form:errors path="pickUpDate"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina <form:input path="pickUpTime" id="time" type="time"
                                                         name="pickUpTime"/> </label>
+                            <form:errors path="pickUpTime"></form:errors>
                         </div>
 
                         <div class="form-group form-group--inline">
@@ -173,6 +180,7 @@
                                 Uwagi dla kuriera
                                 <form:textarea path="pickUpComment" id="com" type="textarea" name="pick_up_comment"
                                                rows="5"/>
+                                <form:errors path="pickUpComment"></form:errors>
                             </label>
                         </div>
                     </div>
@@ -193,14 +201,11 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                    <%--                    <span id="quan" class="summary--text">4 worki ubrań w dobrym stanie dla dzieci</span>--%>
                                 <span id="quan" class="summary--text"></span>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                    <%--                    <span id="fund" class="summary--text"--%>
-                                    <%--                      >Dla fundacji "Mam marzenie" w Warszawie</span>--%>
                                 <span id="fund" class="summary--text"></span>
                             </li>
                         </ul>
@@ -240,7 +245,7 @@
 <%--footer--%>
 <%@ include file="/WEB-INF/fragments/footer.jsp" %>
 
-<script src="<c:url value="resources/js/app.js"/>"></script>
-<script src="<c:url value="resources/js/summary.js"/>"></script>
+<script src="<c:url value="/resources/js/app.js"/>"></script>
+<script src="<c:url value="/resources/js/summary.js"/>"></script>
 </body>
 </html>

@@ -3,13 +3,17 @@ package pl.coderslab.charity.controller;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.charity.model.*;
 import pl.coderslab.charity.service.CategoryService;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
 import pl.coderslab.charity.service.UserService;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,12 +47,15 @@ public class DonationController {
     }
 
     @PostMapping("/user/form")
-    public String saveForm(@AuthenticationPrincipal CurrentUser userSession, Model model, Donation donation) {
+    public String saveForm(@AuthenticationPrincipal CurrentUser userSession, Model model, @Valid @ModelAttribute Donation donation, BindingResult result) {
         Optional<User> user = userService.get(userSession.getUser().getId());
         if (user.isEmpty()) {
             return "login";
         }
         model.addAttribute("user", user.get());
+        if (result.hasErrors()) {
+            return "form";
+        }
         donationService.add(donation);
         return "form-confirmation";
     }

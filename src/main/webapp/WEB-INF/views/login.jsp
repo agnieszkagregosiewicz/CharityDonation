@@ -7,7 +7,7 @@
   <head>
     <%@ include file="/WEB-INF/fragments/meta.jsp" %>
     <title>Logowanie</title>
-    <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
   </head>
   <body>
     <header>
@@ -22,18 +22,23 @@
         </div>
         <div class="form-group">
           <input type="password" name="password" placeholder="Hasło" />
+          <c:if test="${param.error != null && param.error.equals('')}">
+          <div class="form--steps-container">
+            <p>Nieprawidłowe dane logowania</p>
+          </div>
+          </c:if>
           <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
         <div class="form-group form-group--buttons">
+          <button class="btn" type="submit">Zaloguj się</button>
           <a href="<c:url value="/register"/>" class="btn btn--without-border">Załóż konto</a>
-          <button class="btn" type="submit">Zaloguj się</button> 
         </div>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </form>
     </section>
 
     <%@ include file="/WEB-INF/fragments/footer.jsp" %>
-    <script src="<c:url value="resources/js/app.js"/>"></script>
+    <script src="<c:url value="/resources/js/app.js"/>"></script>
   </body>
 </html>

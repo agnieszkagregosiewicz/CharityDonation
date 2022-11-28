@@ -33,15 +33,6 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String getLoginPageaaa(Model model, @RequestParam String email, @RequestParam String password) {
-        System.err.println("aaa");
-        System.err.println(email);
-
-        //model.addAttribute("user", user);
-        return "login";
-    }
-
     @GetMapping("/admin/list")
     public String allUsers(Model model) {
         List<User> users = userService.getUsers();
@@ -68,7 +59,11 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public String submit(@Valid @ModelAttribute User user, BindingResult result) {
+    public String submit(@Valid @ModelAttribute User user, BindingResult result, @RequestParam String password2) {
+        if (!password2.equals(user.getPassword())) {
+            result.addError(new FieldError("user", "password", "Hasła muszą być identyczne."));
+            return "register";
+        }
         if (result.hasErrors()) {
             return "register";
         }

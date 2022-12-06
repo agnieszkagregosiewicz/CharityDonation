@@ -1,17 +1,13 @@
 package pl.coderslab.charity.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-//import pl.coderslab.charity.model.PasswordResetToken;
 import pl.coderslab.charity.model.PasswordResetToken;
 import pl.coderslab.charity.model.Role;
 import pl.coderslab.charity.model.User;
-//import pl.coderslab.charity.repository.PasswordTokenRepository;
 import pl.coderslab.charity.repository.PasswordTokenRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
-
 import java.util.*;
 
 @Service
@@ -20,7 +16,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    @Autowired
    private final PasswordTokenRepository passwordTokenRepository;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, PasswordTokenRepository passwordTokenRepository) {

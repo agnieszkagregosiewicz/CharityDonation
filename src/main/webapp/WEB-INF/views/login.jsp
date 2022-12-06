@@ -37,7 +37,7 @@
               <p>Link wygasł.</p>
             </div>
           </c:if>
-          <c:if test="${param.change != null && param.message.equals('good')}">
+          <c:if test="${param.change != null && param.change.equals('good')}">
             <div class="form--steps-container">
               <p>Hasło zmienione. Zaloguj się do systemu.</p>
             </div>

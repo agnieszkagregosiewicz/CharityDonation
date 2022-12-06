@@ -96,8 +96,6 @@ public class UserController {
         userService.changeUserPassword(user, password2);
         return "redirect:login?change=good";
     }
-
-
     @GetMapping("/user")
     public String readUser(@AuthenticationPrincipal CurrentUser userSession, Model model) {
         Optional<User> user = userService.get(userSession.getUser().getId());

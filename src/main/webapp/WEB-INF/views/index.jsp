@@ -13,7 +13,7 @@
 <body>
 <%--header--%>
 <header class="header--main-page">
-<%@ include file="/WEB-INF/fragments/header.jsp" %>
+    <%@ include file="/WEB-INF/fragments/header.jsp" %>
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>
@@ -87,34 +87,29 @@
     <h2 id="fund">Komu pomagamy?</h2>
 
     <!-- SLIDE 1 -->
-    <div class="help--slides active" data-id="1" >
+    <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <c:forEach var="inst" items="${institutions}" varStatus="i">
-                    <c:if test="${i.index%2 != 0}">
-                <div class="col">
-                    <div class="title">Fundacja ${inst.name}</div>
-                    <div class="subtitle">Cel i misja: ${inst.description}</div>
-                </div>
-                    </c:if>
-                </c:forEach>
-            </li>
-
-            <li>
-                <c:forEach var="inst" items="${institutions}" varStatus="i">
-                    <c:if test="${i.index%2 == 0}">
-                        <div class="col">
-                            <div class="title">Fundacja ${inst.name}</div>
-                            <div class="subtitle">Cel i misja: ${inst.description}</div>
-                        </div>
-                    </c:if>
-                </c:forEach>
-
-            </li>
-
+            <c:forEach var="inst" items="${institutions}" varStatus="i">
+                <c:choose>
+                    <c:when test="${i.index%2 == 0}">
+                        <li>
+                            <div class="col">
+                                <div class="title">Fundacja ${inst.name}</div>
+                                <div class="subtitle">Cel i misja: ${inst.description}</div>
+                            </div>
+                    </c:when>
+                            <c:otherwise>
+                                <div class="col">
+                                    <div class="title">Fundacja ${inst.name}</div>
+                                    <div class="subtitle">Cel i misja: ${inst.description}</div>
+                                </div>
+                                </li>
+                            </c:otherwise>
+                </c:choose>
+            </c:forEach>
         </ul>
     </div>
 

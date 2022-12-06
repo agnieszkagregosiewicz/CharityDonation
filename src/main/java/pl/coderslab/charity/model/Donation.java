@@ -28,7 +28,7 @@ public class Donation {
     @NotEmpty
     private String city;
     @NotEmpty
-    //@Pattern(regexp="[0-9][0-9]-[0-9][0-9][0-9]")
+    @Pattern(regexp="[0-9][0-9]-[0-9][0-9][0-9]")
     private String zipCode;
     @NotNull
     @Future

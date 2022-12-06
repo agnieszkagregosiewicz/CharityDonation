@@ -1,8 +1,10 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.charity.model.CurrentUser;
 import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
@@ -21,7 +23,8 @@ private final DonationService donationService;
     }
 
     @RequestMapping("/")
-    public String homeAction(Model model){
+    public String homeAction(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+        model.addAttribute("isLogin", currentUser != null);
         List<Institution> institutions= institutionService.getInstitutions();
         Long donations = donationService.countAll();
         Long bags = donationService.countBags();

@@ -1,9 +1,14 @@
 package pl.coderslab.charity.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+//import pl.coderslab.charity.model.PasswordResetToken;
+import pl.coderslab.charity.model.PasswordResetToken;
 import pl.coderslab.charity.model.Role;
 import pl.coderslab.charity.model.User;
+//import pl.coderslab.charity.repository.PasswordTokenRepository;
+import pl.coderslab.charity.repository.PasswordTokenRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 import java.util.Arrays;
@@ -17,12 +22,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+   private final PasswordTokenRepository passwordTokenRepository;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, PasswordTokenRepository passwordTokenRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
 
         this.passwordEncoder = passwordEncoder;
+        this.passwordTokenRepository = passwordTokenRepository;
     }
     public List<User> getUsers() {
         return userRepository.findAll();
@@ -44,5 +52,9 @@ public class UserService {
     }
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+    public void createPasswordResetTokenForUser(User user, String token) {
+        PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken);
     }
 }

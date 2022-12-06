@@ -37,6 +37,7 @@ public class DonationController {
         if (user.isEmpty()) {
             return "login";
         }
+        model.addAttribute("isLogin", userSession != null);
         model.addAttribute("user", user.get());
         List<Institution> institutions = institutionService.getInstitutions();
         model.addAttribute("institutions", institutions);
@@ -52,6 +53,7 @@ public class DonationController {
         if (user.isEmpty()) {
             return "login";
         }
+        model.addAttribute("isLogin", userSession != null);
         model.addAttribute("user", user.get());
         if (result.hasErrors()) {
             return "form";

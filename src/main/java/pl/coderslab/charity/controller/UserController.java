@@ -1,7 +1,6 @@
 package pl.coderslab.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ResolvableType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,20 +10,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.charity.mail.MailService;
 import pl.coderslab.charity.model.CurrentUser;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.UserService;
+
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class UserController {
-    @Autowired
-    private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserService userService;
+   private final MailService mailService;
+
+    public UserController(UserService userService, MailService mailService) {
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     @GetMapping("/login")
@@ -32,12 +37,41 @@ public class UserController {
         model.addAttribute("user", user);
         return "login";
     }
-
-    @GetMapping("/admin/list")
-    public String allUsers(Model model) {
-        List<User> users = userService.getUsers();
-        model.addAttribute("users", users);
-        return "users-list";
+    @GetMapping("/reset")
+    public String getResetPage(Model model, User user) {
+        model.addAttribute("user", user);
+        return "passwordResetPage";
+    }
+    @PostMapping("/reset")
+    public String getEmailToReset(Model model, @RequestParam String email) {
+        Optional<User> user = userService.findByEmail(email);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+        } else {
+            model.addAttribute("error", "");
+            return "redirect:reset?error";
+        }
+        String token = UUID.randomUUID().toString();
+        userService.createPasswordResetTokenForUser(user.get(), token);
+        String text = "Kliknij w link, żeby zrestartować hasło";
+        String link ="/reset";
+        String content = text + "\n" + link;
+        mailService.sendEmail(email, "Password reset Charity Donation", content);
+       model.addAttribute("good", "");
+        return "redirect:reset?good";
+    }
+    @GetMapping("/user/changePassword")
+    public String showChangePasswordPage(Locale locale, Model model,
+                                         @RequestParam("token") String token) {
+        String result = securityService.validatePasswordResetToken(token);
+        if(result != null) {
+            String message = messages.getMessage("auth.message." + result, null, locale);
+            return "redirect:/login.html?lang="
+                    + locale.getLanguage() + "&message=" + message;
+        } else {
+            model.addAttribute("token", token);
+            return "redirect:/updatePassword.html?lang=" + locale.getLanguage();
+        }
     }
 
 

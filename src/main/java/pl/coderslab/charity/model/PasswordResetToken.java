@@ -3,6 +3,7 @@ package pl.coderslab.charity.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -26,8 +27,14 @@ public class PasswordResetToken {
 
     public PasswordResetToken() {
     }
-    public PasswordResetToken(String token, User user) {
+    public PasswordResetToken(String token, User user, Date expiryDate) {
         this.token = token;
         this.user = user;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(expiryDate);
+        calendar.add(Calendar.HOUR_OF_DAY, EXPIRATION);
+        this.expiryDate = calendar.getTime();
     }
+
+
 }

@@ -18,20 +18,17 @@
     <h2>Wpisz nowe hasło:</h2>
     <form method="post">
         <div class="form-group">
-            <input type="password" name="password"/>
+            <input type="password" name="password" path="password"/>
         </div>
         <div class="form-group">
             <input type="password" name="password2"/>
         </div>
         <div class="form-group">
-            <%--          <input type="password" name="password" placeholder="Hasło" />--%>
             <c:if test="${param.error != null && param.error.equals('')}">
                 <div class="form--steps-container">
                     <p>Hasła muszą być identyczne</p>
                 </div>
             </c:if>
-
-            <%--          <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>--%>
         </div>
 
         <div class="form-group form-group--buttons">

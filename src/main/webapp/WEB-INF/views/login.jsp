@@ -27,6 +27,21 @@
             <p>Nieprawidłowe dane logowania</p>
           </div>
           </c:if>
+          <c:if test="${param.message != null && param.message.equals('invalidToken')}">
+            <div class="form--steps-container">
+              <p>Token nieważny.</p>
+            </div>
+          </c:if>
+          <c:if test="${param.message != null && param.message.equals('expired')}">
+            <div class="form--steps-container">
+              <p>Link wygasł.</p>
+            </div>
+          </c:if>
+          <c:if test="${param.change != null && param.message.equals('good')}">
+            <div class="form--steps-container">
+              <p>Hasło zmienione. Zaloguj się do systemu.</p>
+            </div>
+          </c:if>
           <a href="<c:url value="/reset"/>" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 

@@ -1,6 +1,5 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.mail.MailService;
 import pl.coderslab.charity.model.CurrentUser;
 import pl.coderslab.charity.model.User;
+import pl.coderslab.charity.repository.PasswordTokenRepository;
+import pl.coderslab.charity.service.SecurityService;
 import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,10 +29,14 @@ public class UserController {
 
     private final UserService userService;
    private final MailService mailService;
+   private final SecurityService securityService;
+   private final PasswordTokenRepository passwordTokenRepository;
 
-    public UserController(UserService userService, MailService mailService) {
+    public UserController(UserService userService, MailService mailService, SecurityService securityService, PasswordTokenRepository passwordTokenRepository) {
         this.userService = userService;
         this.mailService = mailService;
+        this.securityService = securityService;
+        this.passwordTokenRepository = passwordTokenRepository;
     }
 
     @GetMapping("/login")
@@ -52,26 +59,42 @@ public class UserController {
             return "redirect:reset?error";
         }
         String token = UUID.randomUUID().toString();
-        userService.createPasswordResetTokenForUser(user.get(), token);
+        LocalDate localDate = LocalDate.now();
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+        userService.createPasswordResetTokenForUser(user.get(), token, date);
         String text = "Kliknij w link, żeby zrestartować hasło";
-        String link ="/reset";
-        String content = text + "\n" + link;
+        String textEnd = "Link jest ważny przez 24h.";
+        String link = "http://localhost:8080/changePassword?token=" + token;;
+        String content = text + "\n" + link + "\n" + textEnd;
         mailService.sendEmail(email, "Password reset Charity Donation", content);
        model.addAttribute("good", "");
         return "redirect:reset?good";
     }
-    @GetMapping("/user/changePassword")
+    @GetMapping("/changePassword")
     public String showChangePasswordPage(Locale locale, Model model,
                                          @RequestParam("token") String token) {
         String result = securityService.validatePasswordResetToken(token);
         if(result != null) {
-            String message = messages.getMessage("auth.message." + result, null, locale);
-            return "redirect:/login.html?lang="
-                    + locale.getLanguage() + "&message=" + message;
+            return "redirect:/login?lang="
+                    + locale.getLanguage() + "&message=" + result;
         } else {
             model.addAttribute("token", token);
-            return "redirect:/updatePassword.html?lang=" + locale.getLanguage();
+            User user = passwordTokenRepository.findByToken(token).getUser();
+            model.addAttribute("user", user);
+            return "updatePassword";
         }
+    }
+
+    @PostMapping("/changePassword")
+    public String savePassword(@RequestParam String password, @RequestParam String password2, @RequestParam("token") String token, Model model){
+        if (!password2.equals(password)) {
+            model.addAttribute("error");
+            return "redirect:/changePassword?error=";
+        }
+        User user = passwordTokenRepository.findByToken(token).getUser();
+        userService.changeUserPassword(user, password2);
+        return "redirect:login?change=good";
     }
 
 

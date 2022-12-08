@@ -8,7 +8,7 @@ CharityDonation is a web app which helps users to register and donate used items
   * Login
   * Donation form
   * Password recovery
-  * Email activation (in progress)
+  * Email activation
 
 ### Technologies/Methodologies
 * Java
